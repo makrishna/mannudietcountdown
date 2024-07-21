@@ -92,19 +92,60 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', (event) => {
-      fetch("https://dietcalendar-85eb.restdb.io/rest/weight",{
-        headers:{
-'cache-control': 'no-cache',
-     'x-apikey': '950d711d9d1640a00c1ee002eade7a923db83',
-     'Access-Control-Allow-Origin': '*'
-        }
-        }).then(res => {
-        console.log(res);
-      })
-});
+
+    //   fetch("https://dietcalendar-85eb.restdb.io/rest/weight",{
+    //     mode: 'cors',
+    //     headers:{
+    //               'X-API-Key': '950d711d9d1640a00c1ee002eade7a923db83',
+    //               'Access-Control-Allow-Origin': '*',
+    //              "Access-Control-Allow-Headers":
+    // "Access-Control-Allow-Origin, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, x-api-key",
+    //               "Access-Control-Allow-Credentials": "true",
+    //               "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+    //               "Cache-Control": 'no-cache',
+    //     }
+    //   }).then(res => {
+    //     console.log(res);
+    //   });
+
+    $.ajax({
+         url: "https://dietcalendar-85eb.restdb.io/rest/weight",
+         data: { },
+         type: "GET",
+         crossDomain: true,
+         "headers": {
+              "accept": "application/json",
+              "Access-Control-Allow-Origin":"*",
+              "X-API-Key": "950d711d9d1640a00c1ee002eade7a923db83",
+              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, X-API-KEY"
+          },
+         //beforeSend: function(xhr){xhr.setRequestHeader('X-API-Key', '950d711d9d1640a00c1ee002eade7a923db83');xhr.setRequestHeader('Access-Control-Allow-Origin', '*')},
+         success: function() { alert('Success!'); }
+      });
+
+
+      var settings = {
+          'cache': false,
+          "crossDomain": true,
+          "url": "https://dietcalendar-85eb.restdb.io/rest/weight",
+          "method": "GET",
+          "headers": {
+              "accept": "application/json",
+              "Access-Control-Allow-Origin":"*",
+              "X-API-Key": "950d711d9d1640a00c1ee002eade7a923db83",
+              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, X-API-KEY"
+          }
+      }
+
+      $.ajax(settings).done(function (response) {
+          console.log(response);
+
+      });
+
+    });
   </script>
 
 </body>

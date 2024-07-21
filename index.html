@@ -57,6 +57,9 @@
   </header><!-- End #header -->
 
 <main id="header" class="p-0">
+  <div style="text-align: center;">
+    <span>Required Weight Loss:</span> <span id="req"></span>
+  </div>
   <div class="container">
     <div class="countdown d-flex justify-content-center">
       <div>
@@ -66,7 +69,9 @@
       <div>
         
       <h4>Current</h4>
-        <h3>84</h3>
+        <h3 id="cur-weight">84</h3>
+        <input style="width: 60px;" id="cust-weight" type="number" />
+        <button onclick="submitWeight()">submit</button>
       </div>
       <div>
         <h4>Target</h4>
@@ -96,21 +101,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', (event) => {
 
-    //   fetch("https://dietcalendar-85eb.restdb.io/rest/weight",{
-    //     mode: 'cors',
-    //     headers:{
-    //               'X-API-Key': '950d711d9d1640a00c1ee002eade7a923db83',
-    //               'Access-Control-Allow-Origin': '*',
-    //              "Access-Control-Allow-Headers":
-    // "Access-Control-Allow-Origin, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, x-api-key",
-    //               "Access-Control-Allow-Credentials": "true",
-    //               "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-    //               "Cache-Control": 'no-cache',
-    //     }
-    //   }).then(res => {
-    //     console.log(res);
-    //   });
-
     $.ajax({
          url: "https://dietcalendar-85eb.restdb.io/rest/weight",
          data: { },
@@ -118,34 +108,41 @@
          crossDomain: true,
          "headers": {
               "accept": "application/json",
-              "Access-Control-Allow-Origin":"*",
-              "X-API-Key": "950d711d9d1640a00c1ee002eade7a923db83",
-              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, X-API-KEY"
+              "X-API-Key": "669ca83f0af00e6df7122a99",
           },
-         //beforeSend: function(xhr){xhr.setRequestHeader('X-API-Key', '950d711d9d1640a00c1ee002eade7a923db83');xhr.setRequestHeader('Access-Control-Allow-Origin', '*')},
-         success: function() { alert('Success!'); }
-      });
-
-
-      var settings = {
-          'cache': false,
-          "crossDomain": true,
-          "url": "https://dietcalendar-85eb.restdb.io/rest/weight",
-          "method": "GET",
-          "headers": {
-              "accept": "application/json",
-              "Access-Control-Allow-Origin":"*",
-              "X-API-Key": "950d711d9d1640a00c1ee002eade7a923db83",
-              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, X-API-KEY"
-          }
-      }
-
-      $.ajax(settings).done(function (response) {
-          console.log(response);
-
+         success: function(res) { 
+          console.log(res);
+          const weight = res[res.length-1].Weight;
+          document.getElementById('cur-weight').innerHTML = weight;
+          calcReq();
+        }
       });
 
     });
+
+    function calcReq() {
+      const cur = document.getElementById('cur-weight').innerHTML;
+      document.getElementById('req').innerHTML = cur - 69 + ' KG';
+    }
+
+    function submitWeight() {
+      const custWeight = document.getElementById('cust-weight').value;
+      $.ajax({
+         url: "https://dietcalendar-85eb.restdb.io/rest/weight",
+         data: { Weight:parseInt(custWeight) },
+         type: "POST",
+         crossDomain: true,
+         "headers": {
+              "accept": "application/json",
+              "X-API-Key": "669ca83f0af00e6df7122a99",
+          },
+         success: function(res) { 
+          console.log(res);
+          document.getElementById('cur-weight').innerHTML = custWeight;
+          calcReq()
+        }
+      });
+    }
   </script>
 
 </body>

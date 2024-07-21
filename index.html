@@ -56,6 +56,25 @@
     </div>
   </header><!-- End #header -->
 
+<main id="header" class="p-0">
+  <div class="container">
+    <div class="countdown d-flex justify-content-center">
+      <div>
+        <h4>Start</h4>
+        <h3>84</h3>
+      </div>
+      <div>
+        
+      <h4>Current</h4>
+        <h3>84</h3>
+      </div>
+      <div>
+        <h4>Target</h4>
+        <h3>69</h3>
+      </div>
+    </div>
+  </div>
+</main>
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
@@ -73,6 +92,20 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      fetch("https://dietcalendar-85eb.restdb.io/rest/weight",{
+        headers:{
+'cache-control': 'no-cache',
+     'x-apikey': '950d711d9d1640a00c1ee002eade7a923db83',
+     'Access-Control-Allow-Origin': '*'
+        }
+        }).then(res => {
+        console.log(res);
+      })
+});
+  </script>
 
 </body>
 

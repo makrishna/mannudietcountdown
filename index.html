@@ -122,14 +122,14 @@
 
     function calcReq() {
       const cur = document.getElementById('cur-weight').innerHTML;
-      document.getElementById('req').innerHTML = cur - 69 + ' KG';
+      document.getElementById('req').innerHTML = parseFloat(cur - 69) + ' KG';
     }
 
     function submitWeight() {
       const custWeight = document.getElementById('cust-weight').value;
       $.ajax({
          url: "https://dietcalendar-85eb.restdb.io/rest/weight",
-         data: { Weight:parseInt(custWeight) },
+         data: { Weight:parseFloat(custWeight) },
          type: "POST",
          crossDomain: true,
          "headers": {
